@@ -1,6 +1,7 @@
 package com.mieczkowskidev.audalize.fragment;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import com.mieczkowskidev.audalize.R;
 import com.mieczkowskidev.audalize.adapter.AllFilesListAdapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -59,8 +61,21 @@ public class AllFilesListFragment extends Fragment {
         Log.d(TAG, "prepareList()");
 
         List<String> list = new ArrayList<>();
-        String[] myArray = new String[]{"asdasd", "ajsdiasd", "uashdasd", "the fourth item"};
-        list.addAll(Arrays.asList(myArray));
+        list.add("asdasd");
+
+        File sdCardRoot = Environment.getExternalStorageDirectory();
+//        File yourDir = new File(sdCardRoot, "yourpath");
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        for (File f : storageDir.listFiles()) {
+            if (f.isFile()) {
+//                String name = f.getName();
+                list.add(f.getName() + ", " + String.valueOf(f.getUsableSpace()));
+            }
+        }
+
+//        String[] myArray = new String[]{"asdasd", "ajsdiasd", "uashdasd", "the fourth item"};
+//        list.addAll(Arrays.asList(myArray));
 
         AllFilesListAdapter allFilesListAdapter = new AllFilesListAdapter(getActivity(), list);
         allFilesListRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
