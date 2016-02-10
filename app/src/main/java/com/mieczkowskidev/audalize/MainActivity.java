@@ -14,10 +14,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mieczkowskidev.audalize.API.RestAPI;
+import com.mieczkowskidev.audalize.API.RestClient;
+import com.mieczkowskidev.audalize.API.RestClientMultipart;
 import com.mieczkowskidev.audalize.fragment.AllFilesListFragment;
 import com.mieczkowskidev.audalize.utils.FragmentSwitcher;
+import com.mieczkowskidev.audalize.utils.LoginManager;
 
 import java.io.File;
+
+import retrofit.RestAdapter;
+import retrofit.client.Response;
+import retrofit.mime.TypedFile;
+import rx.functions.Action1;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,7 +64,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_synchronize) {
+            Log.d(TAG, "onOptionsItemSelected: clicked Synchronization");
+            postItemOnServer("/storage/emulated/0/Music/audalize/CALL_10-21:07:22.611.mp4", "CALL_10-21:07:22.611");
             return true;
         }
 
@@ -106,5 +117,28 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "showStartingFragment()");
 
         FragmentSwitcher.switchToFragment(this, AllFilesListFragment.newInstance(), R.id.main_activity_placeholder);
+    }
+
+    public void postItemOnServer(String path, String fileName) {
+        Log.d(TAG, "postItemOnServer()");
+
+        RestClientMultipart restClientMultipart = new RestClientMultipart();
+        RestAPI restAPI = restClientMultipart.getRestMultipartAdapter().create(RestAPI.class);
+
+        File myFile = new File(path);
+        TypedFile typedFile = new TypedFile("file:", myFile);
+
+        restAPI.addAudio(LoginManager.getTokenFromShared(this), typedFile, fileName)
+                .subscribe(new Action1<Response>() {
+                    @Override
+                    public void call(Response response) {
+                        Log.d(TAG, "call: success " + response.getReason());
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Log.e(TAG, "call: " + throwable.getMessage());
+                    }
+                });
     }
 }

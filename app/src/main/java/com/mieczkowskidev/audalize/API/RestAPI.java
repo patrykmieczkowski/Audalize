@@ -29,22 +29,22 @@ public interface RestAPI {
     Observable<User> loginUser(@Body UserLogin userLogin);
 
     @POST("/logout")
-    Observable<Response> logoutUser(@Header("Authorization") String authToken);
+    Observable<Response> logoutUser(@Header("AuthToken") String authToken);
 
     @POST("/unregister")
-    Observable<Response> unregisterUser(@Header("Authorization") String authToken);
+    Observable<Response> unregisterUser(@Header("AuthToken") String authToken);
 
     // multipart/form-data
     @Multipart
     @POST("/add-audio")
-    Observable<Response> addAudio(@Header("Authorization") String authToken,
+    Observable<Response> addAudio(@Header("AuthToken") String authToken,
                                   @Part("file") TypedFile file,
                                   @Part("name") String fileName);
 
     @GET("/get-resources")
-    Observable<List<DataResources>> getResources(@Header("Authorization") String authToken);
+    Observable<List<DataResources>> getResources(@Header("AuthToken") String authToken);
 
     @GET("/get-profile")
-    Observable<DataProfile> getProfile(@Header("Authorization") String authToken);
+    Observable<DataProfile> getProfile(@Header("AuthToken") String authToken);
 
 }

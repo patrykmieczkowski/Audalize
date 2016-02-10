@@ -13,10 +13,10 @@ import android.view.ViewGroup;
 
 import com.mieczkowskidev.audalize.R;
 import com.mieczkowskidev.audalize.adapter.AllFilesListAdapter;
+import com.mieczkowskidev.audalize.model.MediaFile;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
@@ -38,7 +38,7 @@ public class AllFilesListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_all_files_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_all_files_list, container, false);
         ButterKnife.bind(this, view);
 
         AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
@@ -60,22 +60,17 @@ public class AllFilesListFragment extends Fragment {
     private void prepareList() {
         Log.d(TAG, "prepareList()");
 
-        List<String> list = new ArrayList<>();
-        list.add("asdasd");
+        List<MediaFile> list = new ArrayList<>();
 
-        File sdCardRoot = Environment.getExternalStorageDirectory();
-//        File yourDir = new File(sdCardRoot, "yourpath");
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_MUSIC);
+        File storageDirAlpha = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+        File storageDir = new File(storageDirAlpha, "/audalize");
+        storageDir.mkdirs();
+
         for (File f : storageDir.listFiles()) {
             if (f.isFile()) {
-//                String name = f.getName();
-                list.add(f.getName() + ", " + String.valueOf(f.getUsableSpace()));
+                list.add(new MediaFile(f.getAbsolutePath(), f.getName(), true));
             }
         }
-
-//        String[] myArray = new String[]{"asdasd", "ajsdiasd", "uashdasd", "the fourth item"};
-//        list.addAll(Arrays.asList(myArray));
 
         AllFilesListAdapter allFilesListAdapter = new AllFilesListAdapter(getActivity(), list);
         allFilesListRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));

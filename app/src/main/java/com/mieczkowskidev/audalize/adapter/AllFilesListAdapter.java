@@ -5,9 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mieczkowskidev.audalize.R;
+import com.mieczkowskidev.audalize.model.MediaFile;
 
 import java.util.List;
 
@@ -17,9 +20,9 @@ import java.util.List;
 public class AllFilesListAdapter extends RecyclerView.Adapter<AllFilesListAdapter.EventHolder> {
 
     private Context context;
-    private List<String> list;
+    private List<MediaFile> list;
 
-    public AllFilesListAdapter(Context context, List<String> list) {
+    public AllFilesListAdapter(Context context, List<MediaFile> list) {
         this.context = context;
         this.list = list;
     }
@@ -33,7 +36,9 @@ public class AllFilesListAdapter extends RecyclerView.Adapter<AllFilesListAdapte
     @Override
     public void onBindViewHolder(AllFilesListAdapter.EventHolder holder, int position) {
 
-        holder.mainText.setText(list.get(position));
+        holder.mainText.setText(list.get(position).getTitle().replaceAll(".mp4", ""));
+        holder.additionalText.setText(list.get(position).getPath());
+        holder.checkBox.setChecked(list.get(position).isChecked());
 
     }
 
@@ -45,12 +50,17 @@ public class AllFilesListAdapter extends RecyclerView.Adapter<AllFilesListAdapte
 
     public static class EventHolder extends RecyclerView.ViewHolder {
 
-        TextView mainText;
+        TextView mainText, additionalText;
+        CheckBox checkBox;
+        RelativeLayout mainLayout;
 
         public EventHolder(View itemView) {
             super(itemView);
 
             mainText = (TextView) itemView.findViewById(R.id.main_text);
+            additionalText = (TextView) itemView.findViewById(R.id.additional_text);
+            checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
+            mainLayout = (RelativeLayout) itemView.findViewById(R.id.main_layout);
         }
     }
 }

@@ -15,6 +15,6 @@
     <string name="login_label_text">Login</string>
     <string name="new_register_button">Register</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_synchronize">Synchronize</string>
 
 </resources>
