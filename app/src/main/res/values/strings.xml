@@ -4,6 +4,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="shared_preferences_user">shared_pref_user</string>
+
+    <string name="formula_empty_error">Cannot be empty</string>
+    <string name="formula_password_error">Password must match</string>
+
     <string name="email_label_text">E-mail</string>
     <string name="password_label_text">Password</string>
     <string name="re_password_label_text">Confirm Password</string>
