@@ -72,9 +72,10 @@ public class AllFilesListFragment extends Fragment {
             }
         }
 
-        AllFilesListAdapter allFilesListAdapter = new AllFilesListAdapter(getActivity(), list);
-        allFilesListRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        allFilesListRecycler.setAdapter(allFilesListAdapter);
-
+        if (list != null && !list.isEmpty()) {
+            AllFilesListAdapter allFilesListAdapter = new AllFilesListAdapter(getActivity(), list);
+            allFilesListRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+            allFilesListRecycler.setAdapter(allFilesListAdapter);
+        }
     }
 }

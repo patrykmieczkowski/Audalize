@@ -7,7 +7,7 @@ public class DataProfile {
 
     private String username;
     private String email;
-    private String personality;
+//    private String personality;
 
     public DataProfile() {
     }
@@ -20,16 +20,15 @@ public class DataProfile {
         return email;
     }
 
-    public String getPersonality() {
-        return personality;
-    }
+//    public String getPersonality() {
+//        return personality;
+//    }
 
     @Override
     public String toString() {
         return "DataProfile{" +
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", personality='" + personality + '\'' +
                 '}';
     }
 }

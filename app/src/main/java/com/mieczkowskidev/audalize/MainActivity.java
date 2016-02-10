@@ -18,6 +18,7 @@ import com.mieczkowskidev.audalize.API.RestAPI;
 import com.mieczkowskidev.audalize.API.RestClient;
 import com.mieczkowskidev.audalize.API.RestClientMultipart;
 import com.mieczkowskidev.audalize.fragment.AllFilesListFragment;
+import com.mieczkowskidev.audalize.fragment.ProfileFragment;
 import com.mieczkowskidev.audalize.utils.FragmentSwitcher;
 import com.mieczkowskidev.audalize.utils.LoginManager;
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_synchronize) {
             Log.d(TAG, "onOptionsItemSelected: clicked Synchronization");
-            postItemOnServer("/storage/emulated/0/Music/audalize/CALL_10-21:07:22.611.mp4", "CALL_10-21:07:22.611");
+            postItemOnServer("/storage/emulated/0/Music/audalize/CALL_10-22:30:21.643.mp4", "first englisch speach");
             return true;
         }
 
@@ -79,17 +80,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_files_list) {
+            FragmentSwitcher.switchToFragment(this, AllFilesListFragment.newInstance(), R.id.main_activity_placeholder);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_profile) {
+            FragmentSwitcher.switchToFragment(this, ProfileFragment.newInstance(), R.id.main_activity_placeholder);
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_settings) {
 
         }
 
@@ -125,8 +122,7 @@ public class MainActivity extends AppCompatActivity
         RestClientMultipart restClientMultipart = new RestClientMultipart();
         RestAPI restAPI = restClientMultipart.getRestMultipartAdapter().create(RestAPI.class);
 
-        File myFile = new File(path);
-        TypedFile typedFile = new TypedFile("file:", myFile);
+        TypedFile typedFile = new TypedFile("file:", new File(path));
 
         restAPI.addAudio(LoginManager.getTokenFromShared(this), typedFile, fileName)
                 .subscribe(new Action1<Response>() {
