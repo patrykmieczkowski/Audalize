@@ -4,5 +4,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="email_label_text">E-mail</string>
+    <string name="password_label_text">Password</string>
+    <string name="re_password_label_text">Confirm Password</string>
+    <string name="login_label_text">Login</string>
+    <string name="new_register_button">Register</string>
+
     <string name="action_settings">Settings</string>
+
 </resources>
