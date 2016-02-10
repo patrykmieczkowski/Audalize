@@ -66,7 +66,7 @@ public class AllFilesListFragment extends Fragment {
         File sdCardRoot = Environment.getExternalStorageDirectory();
 //        File yourDir = new File(sdCardRoot, "yourpath");
         File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
+                Environment.DIRECTORY_MUSIC);
         for (File f : storageDir.listFiles()) {
             if (f.isFile()) {
 //                String name = f.getName();
