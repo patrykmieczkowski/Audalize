@@ -28,6 +28,7 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Patryk Mieczkowski on 06.02.16.
@@ -88,6 +89,7 @@ public class ProfileFragment extends Fragment {
         Log.d(TAG, "getProfileInfo()");
 
         subscriptionProfile = restAPI.getProfile(LoginManager.getTokenFromShared(getActivity()))
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<DataProfile>() {
                     @Override
@@ -135,6 +137,7 @@ public class ProfileFragment extends Fragment {
         Log.d(TAG, "logoutUser()");
 
         subscriptionLogout = restAPI.logoutUser(LoginManager.getTokenFromShared(getActivity()))
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Response>() {
                     @Override
@@ -183,6 +186,7 @@ public class ProfileFragment extends Fragment {
         Log.d(TAG, "deleteUser()");
 
         subscriptionDelete = restAPI.unregisterUser(LoginManager.getTokenFromShared(getActivity()))
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Response>() {
                     @Override

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.mieczkowskidev.audalize.API.RestAPI;
 import com.mieczkowskidev.audalize.API.RestClientMultipart;
 import com.mieczkowskidev.audalize.fragment.AllFilesListFragment;
+import com.mieczkowskidev.audalize.fragment.HistoryFragment;
 import com.mieczkowskidev.audalize.fragment.ProfileFragment;
 import com.mieczkowskidev.audalize.utils.FragmentSwitcher;
 import com.mieczkowskidev.audalize.utils.LoginManager;
@@ -55,17 +56,22 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
-        if (id == R.id.nav_files_list) {
-            FragmentSwitcher.switchToFragment(this, AllFilesListFragment.newInstance(), R.id.main_activity_placeholder);
-
-        } else if (id == R.id.nav_profile) {
-            FragmentSwitcher.switchToFragment(this, ProfileFragment.newInstance(), R.id.main_activity_placeholder);
-
-        } else if (id == R.id.nav_settings) {
-
+        switch (id) {
+            case R.id.nav_files_list:
+                FragmentSwitcher.switchToFragment(this, AllFilesListFragment.newInstance(), R.id.main_activity_placeholder);
+                break;
+            case R.id.nav_profile:
+                FragmentSwitcher.switchToFragment(this, ProfileFragment.newInstance(), R.id.main_activity_placeholder);
+                break;
+            case R.id.nav_history:
+                FragmentSwitcher.switchToFragment(this, HistoryFragment.newInstance(), R.id.main_activity_placeholder);
+                break;
+            case R.id.nav_settings:
+                FragmentSwitcher.switchToFragment(this, ProfileFragment.newInstance(), R.id.main_activity_placeholder);
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

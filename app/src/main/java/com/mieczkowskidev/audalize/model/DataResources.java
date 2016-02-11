@@ -11,7 +11,7 @@ public class DataResources {
     private String source;
     private String name;
     private String content;
-    private String toneAnalysis;
+//    private String toneAnalysis;
     private Date created;
 
     public DataResources() {
@@ -33,9 +33,9 @@ public class DataResources {
         return content;
     }
 
-    public String getToneAnalysis() {
-        return toneAnalysis;
-    }
+//    public String getToneAnalysis() {
+//        return toneAnalysis;
+//    }
 
     public Date getCreated() {
         return created;
@@ -48,7 +48,6 @@ public class DataResources {
                 ", source='" + source + '\'' +
                 ", name='" + name + '\'' +
                 ", content='" + content + '\'' +
-                ", toneAnalysis='" + toneAnalysis + '\'' +
                 ", created=" + created +
                 '}';
     }
