@@ -5,9 +5,8 @@ package com.mieczkowskidev.audalize;
  */
 public class Config {
 
-    public static final String ENDPOINT = "http://audalize.stanzas.co";
+    public static final String ENDPOINT = "http://audalizeapi.stanzas.co";
 
     public static final String TOKEN = "token";
-    public static final String IMAGE = "image";
-    public static final String USERNAME = "username";
+
 }

@@ -57,6 +57,8 @@ public class AllFilesListFragment extends Fragment {
     TextView uploadSizeText;
     @Bind(R.id.upload_layout)
     RelativeLayout uploadLayout;
+    @Bind(R.id.no_data_text)
+    TextView noDataText;
     List<MediaFile> mediaFileList = new ArrayList<>();
 
     public static AllFilesListFragment newInstance() {
@@ -113,7 +115,6 @@ public class AllFilesListFragment extends Fragment {
         Log.d(TAG, "prepareList()");
         mediaFileList.clear();
 
-
         File storageDirAlpha = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
         File storageDir = new File(storageDirAlpha, "/audalize");
         storageDir.mkdirs();
@@ -125,6 +126,8 @@ public class AllFilesListFragment extends Fragment {
         }
 
         if (mediaFileList != null && !mediaFileList.isEmpty()) {
+            allFilesListRecycler.setVisibility(View.VISIBLE);
+            noDataText.setVisibility(View.GONE);
             uploadProgressBar.setScaleY(6f);
 //            uploadProgressBar.getProgressDrawable().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
             uploadProgressBar.setMax(mediaFileList.size());

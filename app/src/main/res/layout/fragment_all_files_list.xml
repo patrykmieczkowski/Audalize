@@ -8,7 +8,16 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/all_files_list_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/no_data_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="Sorry, You don't have any files!\nMake some calls!" />
 
     <RelativeLayout
         android:id="@+id/upload_layout"
