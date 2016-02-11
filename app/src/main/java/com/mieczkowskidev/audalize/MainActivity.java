@@ -1,5 +1,7 @@
 package com.mieczkowskidev.audalize;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +18,7 @@ import com.mieczkowskidev.audalize.fragment.AllFilesListFragment;
 import com.mieczkowskidev.audalize.fragment.HistoryFragment;
 import com.mieczkowskidev.audalize.fragment.ProfileFragment;
 import com.mieczkowskidev.audalize.fragment.SettingsFragment;
+import com.mieczkowskidev.audalize.model.MediaFile;
 import com.mieczkowskidev.audalize.utils.FragmentSwitcher;
 import com.mieczkowskidev.audalize.utils.LoginManager;
 
@@ -121,5 +124,35 @@ public class MainActivity extends AppCompatActivity
                         Log.e(TAG, "call: " + throwable.getMessage());
                     }
                 });
+    }
+
+    public void showDialogAndDeleteItem(final MediaFile mediaFile) {
+        Log.d(TAG, "showDialogAndDeleteItem()");
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete an item?\n" + mediaFile.getTitle())
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        deleteItem(mediaFile);
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void deleteItem(MediaFile mediaFile) {
+        Log.d(TAG, "deleteItem: " + mediaFile.getPath());
+
+        File myFile = new File(mediaFile.getPath());
+        boolean deleted = myFile.delete();
+        Log.d(TAG, "deleteItem status: " + deleted);
+
+        FragmentSwitcher.switchToFragment(this, AllFilesListFragment.newInstance(), R.id.main_activity_placeholder);
     }
 }

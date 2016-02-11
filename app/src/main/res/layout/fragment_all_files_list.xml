@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/cyan200"
+        android:background="@color/colorPrimary"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp" />
 
         <TextView
@@ -35,6 +35,7 @@
             android:layout_above="@id/upload_progress_bar"
             android:layout_centerHorizontal="true"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
             tools:text="7" />
 
         <TextView
@@ -44,6 +45,7 @@
             android:layout_alignTop="@id/upload_counter_text"
             android:layout_toEndOf="@id/upload_counter_text"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
             tools:text="/14" />
 
     </RelativeLayout>

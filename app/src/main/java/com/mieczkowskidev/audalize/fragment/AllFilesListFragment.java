@@ -26,8 +26,6 @@ import com.mieczkowskidev.audalize.adapter.AllFilesListAdapter;
 import com.mieczkowskidev.audalize.model.MediaFile;
 import com.mieczkowskidev.audalize.utils.LoginManager;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,27 +46,21 @@ import rx.schedulers.Schedulers;
 public class AllFilesListFragment extends Fragment {
 
     public static final String TAG = AllFilesListFragment.class.getSimpleName();
+    @Bind(R.id.all_files_list_recycler)
+    RecyclerView allFilesListRecycler;
+    @Bind(R.id.upload_progress_bar)
+    ProgressBar uploadProgressBar;
+    @Bind(R.id.upload_counter_text)
+    TextView uploadCounterText;
+    @Bind(R.id.upload_size_text)
+    TextView uploadSizeText;
+    @Bind(R.id.upload_layout)
+    RelativeLayout uploadLayout;
+    List<MediaFile> mediaFileList = new ArrayList<>();
 
     public static AllFilesListFragment newInstance() {
         return new AllFilesListFragment();
     }
-
-    @Bind(R.id.all_files_list_recycler)
-    RecyclerView allFilesListRecycler;
-
-    @Bind(R.id.upload_progress_bar)
-    ProgressBar uploadProgressBar;
-
-    @Bind(R.id.upload_counter_text)
-    TextView uploadCounterText;
-
-    @Bind(R.id.upload_size_text)
-    TextView uploadSizeText;
-
-    @Bind(R.id.upload_layout)
-    RelativeLayout uploadLayout;
-
-    List<MediaFile> mediaFileList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -118,6 +110,7 @@ public class AllFilesListFragment extends Fragment {
 
     private void prepareList() {
         Log.d(TAG, "prepareList()");
+        mediaFileList.clear();
 
 
         File storageDirAlpha = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
@@ -132,6 +125,7 @@ public class AllFilesListFragment extends Fragment {
 
         if (mediaFileList != null && !mediaFileList.isEmpty()) {
             uploadProgressBar.setScaleY(6f);
+//            uploadProgressBar.getProgressDrawable().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
             uploadProgressBar.setMax(mediaFileList.size());
             String sizeText = "/" + String.valueOf(mediaFileList.size());
             uploadSizeText.setText(sizeText);
@@ -189,7 +183,7 @@ public class AllFilesListFragment extends Fragment {
         Log.d(TAG, "showCompletedDialog()");
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Upload completed! Visit http://audalize.stanzas.co to see the analysis!")
+        builder.setMessage("Upload completed!\nVisit http://audalize.stanzas.co to see the analysis!")
                 .setCancelable(false)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {

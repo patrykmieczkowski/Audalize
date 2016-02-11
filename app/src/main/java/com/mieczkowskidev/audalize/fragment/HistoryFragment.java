@@ -99,6 +99,8 @@ public class HistoryFragment extends Fragment {
                         if (dataResources != null && !dataResources.isEmpty()) {
                             Log.d(TAG, "onNext size " + dataResources.size());
                             showRecyclerView(dataResources);
+                        } else {
+                            historyProgressBar.setVisibility(View.GONE);
                         }
                     }
                 });

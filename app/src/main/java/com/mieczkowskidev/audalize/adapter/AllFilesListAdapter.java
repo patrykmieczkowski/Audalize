@@ -5,10 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mieczkowskidev.audalize.MainActivity;
 import com.mieczkowskidev.audalize.R;
 import com.mieczkowskidev.audalize.model.MediaFile;
 
@@ -37,9 +38,15 @@ public class AllFilesListAdapter extends RecyclerView.Adapter<AllFilesListAdapte
     public void onBindViewHolder(AllFilesListAdapter.EventHolder holder, int position) {
 
         holder.mainText.setText(list.get(position).getTitle().replaceAll(".mp4", ""));
-        holder.additionalText.setText(list.get(position).getPath());
-        holder.checkBox.setChecked(list.get(position).isChecked());
+        holder.additionalText.setText(list.get(position).getPath().replaceAll(".mp4", ""));
 
+        final MediaFile mediaFile = list.get(position);
+        holder.deleteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) context).showDialogAndDeleteItem(mediaFile);
+            }
+        });
     }
 
     @Override
@@ -51,7 +58,7 @@ public class AllFilesListAdapter extends RecyclerView.Adapter<AllFilesListAdapte
     public static class EventHolder extends RecyclerView.ViewHolder {
 
         TextView mainText, additionalText;
-        CheckBox checkBox;
+        ImageView deleteImage;
         RelativeLayout mainLayout;
 
         public EventHolder(View itemView) {
@@ -59,7 +66,7 @@ public class AllFilesListAdapter extends RecyclerView.Adapter<AllFilesListAdapte
 
             mainText = (TextView) itemView.findViewById(R.id.main_text);
             additionalText = (TextView) itemView.findViewById(R.id.additional_text);
-            checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
+            deleteImage = (ImageView) itemView.findViewById(R.id.delete_item);
             mainLayout = (RelativeLayout) itemView.findViewById(R.id.main_layout);
         }
     }

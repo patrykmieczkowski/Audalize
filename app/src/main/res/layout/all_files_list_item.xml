@@ -22,11 +22,13 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         tools:text="/storage/emulated/0/Music/audalize/CALL_10-21:07:22.611.mp4" />
 
-    <CheckBox
-        android:id="@+id/checkBox"
+    <ImageView
+        android:id="@+id/delete_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:padding="10dp"
+        android:src="@drawable/ic_delete_black_24dp" />
 
 </RelativeLayout>

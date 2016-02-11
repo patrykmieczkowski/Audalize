@@ -104,7 +104,7 @@ public class CallReceiver extends BroadcastReceiver {
             recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
-            String timeStamp = new SimpleDateFormat("dd-HH:mm:ss.SSS", Locale.ENGLISH).format(new Date());
+            String timeStamp = new SimpleDateFormat("dd.MM-HH:mm:ss.SSS", Locale.ENGLISH).format(new Date());
             String fileName = "/CALL_" + timeStamp + ".mp4";
 
             File storageDirAlpha = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
