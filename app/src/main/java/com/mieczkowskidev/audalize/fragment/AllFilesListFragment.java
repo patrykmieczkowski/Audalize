@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.mieczkowskidev.audalize.API.RestAPI;
 import com.mieczkowskidev.audalize.API.RestClientMultipart;
+import com.mieczkowskidev.audalize.MainActivity;
 import com.mieczkowskidev.audalize.R;
 import com.mieczkowskidev.audalize.adapter.AllFilesListAdapter;
 import com.mieczkowskidev.audalize.model.MediaFile;
@@ -71,7 +72,7 @@ public class AllFilesListFragment extends Fragment {
 
         AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         if (appCompatActivity.getSupportActionBar() != null) {
-            appCompatActivity.getSupportActionBar().setTitle("Files List");
+            appCompatActivity.getSupportActionBar().setTitle("Synchronization");
         }
 
         return view;
@@ -159,7 +160,14 @@ public class AllFilesListFragment extends Fragment {
                     public void onCompleted() {
                         Log.d(TAG, "onCompleted()");
 
-                        showCompletedDialog();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                deleteFiles();
+                                showCompletedDialog();
+                            }
+                        });
+
                     }
 
                     @Override
@@ -192,9 +200,21 @@ public class AllFilesListFragment extends Fragment {
                         uploadCounterText.setText("");
                         uploadSizeText.setText("");
                         uploadProgressBar.setProgress(0);
+                        ((MainActivity) getActivity()).showStartingFragment();
                     }
                 });
         final AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private void deleteFiles() {
+        Log.d(TAG, "deleteFiles()");
+
+        if (mediaFileList != null && !mediaFileList.isEmpty()) {
+            for (MediaFile mediaFile : mediaFileList) {
+                boolean deleted = new File(mediaFile.getPath()).delete();
+                Log.d(TAG, "deleteItem status: " + deleted);
+            }
+        }
     }
 }

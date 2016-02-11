@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mieczkowskidev.audalize.API.RestAPI;
@@ -28,7 +27,6 @@ import retrofit.client.Response;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -43,9 +41,8 @@ public class ProfileFragment extends Fragment {
     TextView mailText;
     @Bind(R.id.logout_button)
     FloatingActionButton logoutButton;
-    @Bind(R.id.delete_button)
-    ImageView deleteButton;
-    Subscription subscriptionProfile, subscriptionLogout, subscriptionDelete;
+
+    Subscription subscriptionProfile, subscriptionLogout;
     RestAPI restAPI;
 
     public static ProfileFragment newInstance() {
@@ -157,49 +154,6 @@ public class ProfileFragment extends Fragment {
                 });
     }
 
-    @OnClick(R.id.delete_button)
-    public void deleteUserDialog() {
-        Log.d(TAG, "deleteUserDialog()");
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Are you sure you want to delete an account and all the erase all the data from server?")
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        deleteUser();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void deleteUser() {
-        Log.d(TAG, "deleteUser()");
-
-        subscriptionDelete = restAPI.unregisterUser(LoginManager.getTokenFromShared(getActivity()))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Response>() {
-                    @Override
-                    public void call(Response response) {
-                        Log.d(TAG, "call() " + response.getReason());
-                        Intent intent = new Intent(getActivity(), LoginActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Log.e(TAG, "call" + throwable.getMessage());
-                    }
-                });
-    }
-
     @Override
     public void onDestroy() {
         Log.d(TAG, "onDestroy() ProfileFragment");
@@ -213,8 +167,5 @@ public class ProfileFragment extends Fragment {
             subscriptionLogout.unsubscribe();
         }
 
-        if (subscriptionDelete != null && !subscriptionDelete.isUnsubscribed()) {
-            subscriptionDelete.unsubscribe();
-        }
     }
 }

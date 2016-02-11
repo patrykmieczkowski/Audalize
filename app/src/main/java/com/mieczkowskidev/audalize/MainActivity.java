@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void showStartingFragment() {
+    public void showStartingFragment() {
         Log.d(TAG, "showStartingFragment()");
 
         FragmentSwitcher.switchToFragment(this, AllFilesListFragment.newInstance(), R.id.main_activity_placeholder);

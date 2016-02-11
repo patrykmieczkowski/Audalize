@@ -5,7 +5,7 @@
         <item
             android:id="@+id/nav_files_list"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Files list" />
+            android:title="Synchronization" />
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_menu_share"
