@@ -1,7 +1,5 @@
 package com.mieczkowskidev.audalize.model;
 
-import java.util.Date;
-
 /**
  * Created by Patryk Mieczkowski on 2016-02-09
  */
@@ -10,9 +8,9 @@ public class DataResources {
     private int id;
     private String source;
     private String name;
-    private String content;
+    //    private String content;
 //    private String toneAnalysis;
-    private Date created;
+    private String created;
 
     public DataResources() {
     }
@@ -29,15 +27,7 @@ public class DataResources {
         return name;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-//    public String getToneAnalysis() {
-//        return toneAnalysis;
-//    }
-
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
@@ -47,8 +37,7 @@ public class DataResources {
                 "id=" + id +
                 ", source='" + source + '\'' +
                 ", name='" + name + '\'' +
-                ", content='" + content + '\'' +
-                ", created=" + created +
+                ", created='" + created + '\'' +
                 '}';
     }
 }

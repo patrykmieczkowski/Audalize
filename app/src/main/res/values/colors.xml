@@ -6,4 +6,6 @@
 
     <color name="cyan200">#80DEEA</color>
     <color name="cyan900">#006064</color>
+
+    <color name="textColor">#243D3D</color>
 </resources>

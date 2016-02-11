@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,6 +14,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/textColor"
         android:textStyle="bold"
         tools:text="Name" />
 
@@ -23,23 +25,33 @@
         android:layout_below="@id/textViewName"
         android:layout_centerHorizontal="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/textColor"
         tools:text="name@gname.com" />
 
-    <Button
+    <ImageView
         android:id="@+id/delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Delete Button" />
+        android:src="@drawable/button_delete" />
 
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/profile_coordinator"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/delete_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="Logout Button" />
+        android:layout_alignParentBottom="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/logout_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_exit_to_app_white_24dp"
+            app:backgroundTint="@color/colorPrimaryDark"
+            app:layout_anchor="@id/profile_coordinator"
+            app:layout_anchorGravity="bottom|right|end" />
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </RelativeLayout>

@@ -4,13 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mieczkowskidev.audalize.API.RestAPI;
@@ -36,25 +37,20 @@ import rx.schedulers.Schedulers;
 public class ProfileFragment extends Fragment {
 
     public static final String TAG = ProfileFragment.class.getSimpleName();
+    @Bind(R.id.textViewName)
+    TextView usernameText;
+    @Bind(R.id.textViewMail)
+    TextView mailText;
+    @Bind(R.id.logout_button)
+    FloatingActionButton logoutButton;
+    @Bind(R.id.delete_button)
+    ImageView deleteButton;
+    Subscription subscriptionProfile, subscriptionLogout, subscriptionDelete;
+    RestAPI restAPI;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
     }
-
-    @Bind(R.id.textViewName)
-    TextView usernameText;
-
-    @Bind(R.id.textViewMail)
-    TextView mailText;
-
-    @Bind(R.id.logout_button)
-    Button logoutButton;
-
-    @Bind(R.id.delete_button)
-    Button deleteButton;
-
-    Subscription subscriptionProfile, subscriptionLogout, subscriptionDelete;
-    RestAPI restAPI;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

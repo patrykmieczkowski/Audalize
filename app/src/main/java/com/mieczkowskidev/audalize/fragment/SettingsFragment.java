@@ -1,13 +1,17 @@
 package com.mieczkowskidev.audalize.fragment;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mieczkowskidev.audalize.R;
+import com.mieczkowskidev.audalize.service.CallReceiver;
 
 import butterknife.ButterKnife;
 
@@ -40,7 +44,19 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        boolean isMyServiceRunning = isMyServiceRunning(CallReceiver.class);
+        Log.d(TAG, "onViewCreated: my service: " + isMyServiceRunning);
     }
-    
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

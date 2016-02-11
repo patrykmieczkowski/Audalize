@@ -1,47 +1,30 @@
 package com.mieczkowskidev.audalize.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.mieczkowskidev.audalize.API.RestAPI;
 import com.mieczkowskidev.audalize.API.RestClient;
-import com.mieczkowskidev.audalize.API.RestClientMultipart;
 import com.mieczkowskidev.audalize.R;
-import com.mieczkowskidev.audalize.adapter.AllFilesListAdapter;
+import com.mieczkowskidev.audalize.adapter.HistoryAdapter;
 import com.mieczkowskidev.audalize.model.DataResources;
-import com.mieczkowskidev.audalize.model.MediaFile;
-import com.mieczkowskidev.audalize.model.UserLogin;
 import com.mieczkowskidev.audalize.utils.LoginManager;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit.RetrofitError;
-import retrofit.client.Response;
-import retrofit.mime.TypedFile;
-import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -50,6 +33,10 @@ import rx.schedulers.Schedulers;
 public class HistoryFragment extends Fragment {
 
     public static final String TAG = HistoryFragment.class.getSimpleName();
+    @Bind(R.id.history_list_recycler)
+    RecyclerView historyListRecycler;
+    @Bind(R.id.history_progress_bar)
+    ProgressBar historyProgressBar;
 
     public static HistoryFragment newInstance() {
         return new HistoryFragment();
@@ -96,6 +83,13 @@ public class HistoryFragment extends Fragment {
                         Log.e(TAG, "onError() " + e.getMessage());
                         Log.e(TAG, "onError() " + ((RetrofitError) e).getUrl());
 
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                historyProgressBar.setVisibility(View.GONE);
+                            }
+                        });
+
                     }
 
                     @Override
@@ -104,12 +98,21 @@ public class HistoryFragment extends Fragment {
 
                         if (dataResources != null && !dataResources.isEmpty()) {
                             Log.d(TAG, "onNext size " + dataResources.size());
-                            for (DataResources dataResource : dataResources) {
-                                Log.d(TAG, "onNext: " + dataResource.getName());
-                            }
+                            showRecyclerView(dataResources);
                         }
                     }
                 });
+    }
+
+    private void showRecyclerView(List<DataResources> dataResources) {
+        Log.d(TAG, "showRecyclerView()");
+
+        historyProgressBar.setVisibility(View.GONE);
+        historyListRecycler.setVisibility(View.VISIBLE);
+
+        HistoryAdapter historyAdapter = new HistoryAdapter(getActivity(), dataResources);
+        historyListRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        historyListRecycler.setAdapter(historyAdapter);
     }
 
 

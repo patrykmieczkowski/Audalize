@@ -1,14 +1,13 @@
 package com.mieczkowskidev.audalize;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.mieczkowskidev.audalize.API.RestAPI;
@@ -16,6 +15,7 @@ import com.mieczkowskidev.audalize.API.RestClientMultipart;
 import com.mieczkowskidev.audalize.fragment.AllFilesListFragment;
 import com.mieczkowskidev.audalize.fragment.HistoryFragment;
 import com.mieczkowskidev.audalize.fragment.ProfileFragment;
+import com.mieczkowskidev.audalize.fragment.SettingsFragment;
 import com.mieczkowskidev.audalize.utils.FragmentSwitcher;
 import com.mieczkowskidev.audalize.utils.LoginManager;
 
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
                 FragmentSwitcher.switchToFragment(this, HistoryFragment.newInstance(), R.id.main_activity_placeholder);
                 break;
             case R.id.nav_settings:
-                FragmentSwitcher.switchToFragment(this, ProfileFragment.newInstance(), R.id.main_activity_placeholder);
+                FragmentSwitcher.switchToFragment(this, SettingsFragment.newInstance(), R.id.main_activity_placeholder);
                 break;
         }
 
