@@ -1,10 +1,7 @@
 package com.mieczkowskidev.audalize;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mieczkowskidev.audalize.API.RestAPI;
-import com.mieczkowskidev.audalize.API.RestClient;
 import com.mieczkowskidev.audalize.API.RestClientMultipart;
 import com.mieczkowskidev.audalize.fragment.AllFilesListFragment;
 import com.mieczkowskidev.audalize.fragment.ProfileFragment;
@@ -24,7 +20,6 @@ import com.mieczkowskidev.audalize.utils.LoginManager;
 
 import java.io.File;
 
-import retrofit.RestAdapter;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 import rx.functions.Action1;
@@ -42,6 +37,9 @@ public class MainActivity extends AppCompatActivity
         prepareMenu();
 
         showStartingFragment();
+
+//        postItemOnServer("/storage/emulated/0/Music/audalize/CALL_10-22:30:21.643.mp4", "first englisch speach");
+
     }
 
     @Override
@@ -52,26 +50,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_synchronize) {
-            Log.d(TAG, "onOptionsItemSelected: clicked Synchronization");
-            postItemOnServer("/storage/emulated/0/Music/audalize/CALL_10-22:30:21.643.mp4", "first englisch speach");
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -123,6 +101,7 @@ public class MainActivity extends AppCompatActivity
         RestAPI restAPI = restClientMultipart.getRestMultipartAdapter().create(RestAPI.class);
 
         TypedFile typedFile = new TypedFile("file:", new File(path));
+
 
         restAPI.addAudio(LoginManager.getTokenFromShared(this), typedFile, fileName)
                 .subscribe(new Action1<Response>() {
