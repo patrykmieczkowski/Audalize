@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_history:
                 FragmentSwitcher.switchToFragment(this, HistoryFragment.newInstance(), R.id.main_activity_placeholder);
                 break;
-            case R.id.nav_settings:
-                FragmentSwitcher.switchToFragment(this, SettingsFragment.newInstance(), R.id.main_activity_placeholder);
-                break;
+//            case R.id.nav_settings:
+//                FragmentSwitcher.switchToFragment(this, SettingsFragment.newInstance(), R.id.main_activity_placeholder);
+//                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

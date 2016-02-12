@@ -104,6 +104,7 @@ public class AllFilesListFragment extends Fragment {
                     startSynchronization();
                 } else {
                     Log.e(TAG, "onOptionsItemSelected: sorry, list is empty cannot synchronize");
+                    showSnackbar("Nothing to synchronize");
                 }
                 break;
         }
@@ -219,5 +220,9 @@ public class AllFilesListFragment extends Fragment {
                 Log.d(TAG, "deleteItem status: " + deleted);
             }
         }
+    }
+
+    private void showSnackbar(String message){
+
     }
 }

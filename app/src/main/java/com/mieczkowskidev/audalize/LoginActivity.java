@@ -104,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
     public void startLoginFragment() {
         MODE = LOGIN;
 
+        hideKeyboard();
         LoginFragment fragment = new LoginFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
